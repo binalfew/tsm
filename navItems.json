@@ -1,0 +1,31 @@
+[
+  {
+    "to": "/app/technicianstockmanagement/stock",
+    "label": "Stock",
+    "component": "Stock",
+    "roles": ["TSM_VIEW"],
+    "noRoleAction": "hide",
+    "children": [
+      {
+        "to": "/app/technicianstockmanagement/stock/consumption",
+        "label": "Stock Updates",
+        "component": "Consumption"
+      },
+      {
+        "to": "/app/technicianstockmanagement/stock/balance",
+        "label": "Balance",
+        "component": "Balance"
+      },
+      {
+        "to": "/app/technicianstockmanagement/stock/stockevents",
+        "label": "Stock Events",
+        "component": "StockEvents"
+      },
+      {
+        "to": "/app/technicianstockmanagement/stock/return",
+        "label": "Return to Stores",
+        "component": "Return"
+      }
+    ]
+  }
+]

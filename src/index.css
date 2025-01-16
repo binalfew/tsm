@@ -1,0 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.ant-select-selection-search-input:focus {
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* .ant-modal-confirm-btns .ant-btn-primary {
+  background-color: #ff6a13 !important;
+} */

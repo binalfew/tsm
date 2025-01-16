@@ -1,0 +1,54 @@
+definitions:
+  steps:
+    - step: &jenkins_job_trigger_by_branch
+        name: Trigger Jenkins Pipe
+        script:
+          - pipe: atlassian/jenkins-job-trigger:0.6.0
+            variables:
+              JENKINS_URL: "$JENKINS_PIPELINE_URL"
+              JENKINS_USER: "$JENKINS_USER"
+              JENKINS_TOKEN: "$JENKINS_TOKEN"
+              JOB_NAME: "pipeline-$BITBUCKET_REPO_SLUG"
+              JOB_PARAMETERS: >
+                {
+                   "source_branch": "$BITBUCKET_BRANCH"
+                }
+
+    - step: &jenkins_job_trigger_by_tag
+        name: Trigger Jenkins Pipe
+        script:
+          - pipe: atlassian/jenkins-job-trigger:0.6.0
+            variables:
+              JENKINS_URL: "$JENKINS_PIPELINE_URL"
+              JENKINS_USER: "$JENKINS_USER"
+              JENKINS_TOKEN: "$JENKINS_TOKEN"
+              JOB_NAME: "pipeline-$BITBUCKET_REPO_SLUG"
+              JOB_PARAMETERS: >
+                {
+                   "source_branch": "refs/tags/$BITBUCKET_TAG"
+                }
+
+pipelines:
+  branches:
+    master:
+      - step:
+          <<: *jenkins_job_trigger_by_branch
+    develop:
+      - step:
+          <<: *jenkins_job_trigger_by_branch
+    feature/*:
+      - step:
+          <<: *jenkins_job_trigger_by_branch
+    release/*:
+      - step:
+          <<: *jenkins_job_trigger_by_branch
+    hotfix/*:
+      - step:
+          <<: *jenkins_job_trigger_by_branch
+    revert/*:
+      - step:
+          <<: *jenkins_job_trigger_by_branch 
+  tags:
+    '*':
+      - step:
+          <<: *jenkins_job_trigger_by_tag
